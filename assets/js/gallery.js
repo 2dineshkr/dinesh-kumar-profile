@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateState(index) {
       activeIndex = index;
       dots.forEach((dot, dotIndex) => dot.setAttribute("aria-current", dotIndex === index ? "true" : "false"));
+      slides.forEach((slide, slideIndex) => slide.classList.toggle("is-active", slideIndex === index));
       if (currentLabel) currentLabel.textContent = String(index + 1);
     }
 
