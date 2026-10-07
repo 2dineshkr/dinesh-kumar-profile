@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let activeIndex = 0;
     let scrollFrame = 0;
+    let autoplayTimer = 0;
+    let resumeTimer = 0;
+    let isHovering = false;
+    let hasFocus = false;
+    let isPointerDown = false;
 
     if (!slides.length || !dotsContainer) return;
 
@@ -17,10 +22,30 @@ document.addEventListener("DOMContentLoaded", () => {
       dot.type = "button";
       dot.className = "gallery-dot";
       dot.setAttribute("aria-label", `Show screenshot ${index + 1}`);
-      dot.addEventListener("click", () => showSlide(index));
+      dot.addEventListener("click", () => showSlideFromInteraction(index));
       dotsContainer.appendChild(dot);
       return dot;
     });
+
+    function stopAutoplay() {
+      window.clearInterval(autoplayTimer);
+      autoplayTimer = 0;
+    }
+
+    function canAutoplay() {
+      return !reduceMotion && !document.hidden && !isHovering && !hasFocus && !isPointerDown;
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      if (!canAutoplay()) return;
+      autoplayTimer = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+    }
+
+    function scheduleAutoplay() {
+      window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(startAutoplay, 7000);
+    }
 
     function updateState(index) {
       activeIndex = index;
@@ -39,6 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
       updateState(normalized);
     }
 
+    function showSlideFromInteraction(index) {
+      stopAutoplay();
+      showSlide(index);
+      scheduleAutoplay();
+    }
+
     function findCenteredSlide() {
       const galleryBox = gallery.getBoundingClientRect();
       const center = galleryBox.left + galleryBox.width / 2;
@@ -55,19 +86,35 @@ document.addEventListener("DOMContentLoaded", () => {
       updateState(closestIndex);
     }
 
-    previous?.addEventListener("click", () => showSlide(activeIndex - 1));
-    next?.addEventListener("click", () => showSlide(activeIndex + 1));
+    previous?.addEventListener("click", () => showSlideFromInteraction(activeIndex - 1));
+    next?.addEventListener("click", () => showSlideFromInteraction(activeIndex + 1));
     gallery.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowLeft") { event.preventDefault(); showSlide(activeIndex - 1); }
-      if (event.key === "ArrowRight") { event.preventDefault(); showSlide(activeIndex + 1); }
-      if (event.key === "Home") { event.preventDefault(); showSlide(0); }
-      if (event.key === "End") { event.preventDefault(); showSlide(slides.length - 1); }
+      if (event.key === "ArrowLeft") { event.preventDefault(); showSlideFromInteraction(activeIndex - 1); }
+      if (event.key === "ArrowRight") { event.preventDefault(); showSlideFromInteraction(activeIndex + 1); }
+      if (event.key === "Home") { event.preventDefault(); showSlideFromInteraction(0); }
+      if (event.key === "End") { event.preventDefault(); showSlideFromInteraction(slides.length - 1); }
     });
     gallery.addEventListener("scroll", () => {
       cancelAnimationFrame(scrollFrame);
       scrollFrame = requestAnimationFrame(findCenteredSlide);
     }, { passive: true });
 
+    section?.addEventListener("mouseenter", () => { isHovering = true; stopAutoplay(); });
+    section?.addEventListener("mouseleave", () => { isHovering = false; startAutoplay(); });
+    section?.addEventListener("focusin", () => { hasFocus = true; stopAutoplay(); });
+    section?.addEventListener("focusout", () => {
+      window.setTimeout(() => {
+        hasFocus = section.contains(document.activeElement);
+        if (!hasFocus) startAutoplay();
+      }, 0);
+    });
+    gallery.addEventListener("pointerdown", () => { isPointerDown = true; stopAutoplay(); }, { passive: true });
+    gallery.addEventListener("pointerup", () => { isPointerDown = false; scheduleAutoplay(); }, { passive: true });
+    gallery.addEventListener("pointercancel", () => { isPointerDown = false; scheduleAutoplay(); }, { passive: true });
+    gallery.addEventListener("wheel", () => { stopAutoplay(); scheduleAutoplay(); }, { passive: true });
+    document.addEventListener("visibilitychange", () => document.hidden ? stopAutoplay() : startAutoplay());
+
     updateState(0);
+    startAutoplay();
   });
 });
