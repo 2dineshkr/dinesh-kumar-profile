@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://2dineshkr.github.io/dinesh-kumar-profile/sitemap.xml
+
