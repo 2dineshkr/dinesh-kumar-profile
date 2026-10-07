@@ -7,6 +7,7 @@ A fast, dependency-free professional portfolio covering software architecture, b
 - `/projects/android/` — Android/mobile explorations
 - `/projects/ai/` — AI/GenAI explorations
 - `/projects/engineering/` — architecture/backend engineering explorations
+- `/apps/` — application portfolio and resource hub
 - `/apps/smartdialer/` — SmartDialer app landing page
 - `/apps/smartdialer/privacy.html` — SmartDialer privacy policy
 - `/apps/smartdialer/support.html` — SmartDialer support page
@@ -33,5 +34,8 @@ Then open `http://localhost:8000/`.
 - Add project screenshots and release links when they represent tested builds.
 - Keep project descriptions explicit about whether work is released, in development, or exploratory.
 
-## Before SmartDialer release
-The SmartDialer privacy and support pages intentionally contain pre-release placeholders. Finalize them against the actual release build, permissions, SDKs, Data Safety declarations and support contact before publishing the app.
+## Application publishing
+
+All applications are published under `/apps/<application-name>/` with an overview, privacy policy, and support page. SmartDialer was previously developed under the CallMate name; SmartDialer and its URLs are canonical going forward.
+
+Before each application release, verify its published privacy statements against the release build, Android permissions, third-party SDKs, backup behavior, retention logic, Google Play Data Safety declaration, and store support contact.
