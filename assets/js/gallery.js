@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const AUTOPLAY_DELAY = 2400;
+  const INTERACTION_RESUME_DELAY = 3500;
+
   document.querySelectorAll("[data-gallery]").forEach((gallery) => {
     const section = gallery.closest(".showcase-section");
     const slides = Array.from(gallery.querySelectorAll("[data-slide]"));
@@ -40,12 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function startAutoplay() {
       stopAutoplay();
       if (!canAutoplay()) return;
-      autoplayTimer = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+      autoplayTimer = window.setInterval(() => showSlide(activeIndex + 1), AUTOPLAY_DELAY);
     }
 
     function scheduleAutoplay() {
       window.clearTimeout(resumeTimer);
-      resumeTimer = window.setTimeout(startAutoplay, 7000);
+      resumeTimer = window.setTimeout(startAutoplay, INTERACTION_RESUME_DELAY);
     }
 
     function updateState(index) {
