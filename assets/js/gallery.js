@@ -6,16 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const next = section?.querySelector(".gallery-next");
     const dotsContainer = section?.querySelector(".gallery-dots");
     const currentLabel = section?.querySelector("[data-gallery-current]");
+    const totalLabel = section?.querySelector("[data-gallery-total]");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let activeIndex = 0;
     let scrollFrame = 0;
     let autoplayTimer = 0;
     let resumeTimer = 0;
-    let isHovering = false;
     let hasFocus = false;
     let isPointerDown = false;
 
     if (!slides.length || !dotsContainer) return;
+    if (totalLabel) totalLabel.textContent = String(slides.length);
 
     const dots = slides.map((slide, index) => {
       const dot = document.createElement("button");
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function canAutoplay() {
-      return !reduceMotion && !document.hidden && !isHovering && !hasFocus && !isPointerDown;
+      return !reduceMotion && !document.hidden && !hasFocus && !isPointerDown;
     }
 
     function startAutoplay() {
@@ -56,10 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showSlide(index) {
       const normalized = (index + slides.length) % slides.length;
-      slides[normalized].scrollIntoView({
+      const slide = slides[normalized];
+      const targetLeft = slide.offsetLeft - (gallery.clientWidth - slide.offsetWidth) / 2;
+      gallery.scrollTo({
+        left: targetLeft,
         behavior: reduceMotion ? "auto" : "smooth",
-        block: "nearest",
-        inline: "center"
       });
       updateState(normalized);
     }
@@ -99,8 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
       scrollFrame = requestAnimationFrame(findCenteredSlide);
     }, { passive: true });
 
-    section?.addEventListener("mouseenter", () => { isHovering = true; stopAutoplay(); });
-    section?.addEventListener("mouseleave", () => { isHovering = false; startAutoplay(); });
     section?.addEventListener("focusin", () => { hasFocus = true; stopAutoplay(); });
     section?.addEventListener("focusout", () => {
       window.setTimeout(() => {
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gallery.addEventListener("wheel", () => { stopAutoplay(); scheduleAutoplay(); }, { passive: true });
     document.addEventListener("visibilitychange", () => document.hidden ? stopAutoplay() : startAutoplay());
 
-    updateState(0);
+    findCenteredSlide();
     startAutoplay();
   });
 });
