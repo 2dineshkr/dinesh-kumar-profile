@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const AUTOPLAY_DELAY = 2400;
-  const INTERACTION_RESUME_DELAY = 3500;
+  const AUTOPLAY_DELAY = 1800;
+  const INTERACTION_RESUME_DELAY = 3000;
+  const LOOP_RESET_DELAY = 650;
 
   document.querySelectorAll("[data-gallery]").forEach((gallery) => {
     const section = gallery.closest(".showcase-section");
@@ -15,11 +16,31 @@ document.addEventListener("DOMContentLoaded", () => {
     let scrollFrame = 0;
     let autoplayTimer = 0;
     let resumeTimer = 0;
+    let loopResetTimer = 0;
     let hasFocus = false;
     let isPointerDown = false;
+    let isLooping = false;
 
     if (!slides.length || !dotsContainer) return;
     if (totalLabel) totalLabel.textContent = String(slides.length);
+
+    const makeClones = () => slides.map((slide, index) => {
+      const clone = slide.cloneNode(true);
+      clone.removeAttribute("data-slide");
+      clone.dataset.galleryIndex = String(index);
+      clone.setAttribute("aria-hidden", "true");
+      return clone;
+    });
+    const leadingClones = makeClones();
+    const trailingClones = makeClones();
+    const leadingFragment = document.createDocumentFragment();
+    const trailingFragment = document.createDocumentFragment();
+    leadingClones.forEach((clone) => leadingFragment.appendChild(clone));
+    trailingClones.forEach((clone) => trailingFragment.appendChild(clone));
+    gallery.prepend(leadingFragment);
+    gallery.append(trailingFragment);
+    slides.forEach((slide, index) => { slide.dataset.galleryIndex = String(index); });
+    const visualSlides = [...leadingClones, ...slides, ...trailingClones];
 
     const dots = slides.map((slide, index) => {
       const dot = document.createElement("button");
@@ -54,18 +75,49 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateState(index) {
       activeIndex = index;
       dots.forEach((dot, dotIndex) => dot.setAttribute("aria-current", dotIndex === index ? "true" : "false"));
-      slides.forEach((slide, slideIndex) => slide.classList.toggle("is-active", slideIndex === index));
+      visualSlides.forEach((slide) => slide.classList.toggle("is-active", Number(slide.dataset.galleryIndex) === index));
       if (currentLabel) currentLabel.textContent = String(index + 1);
+    }
+
+    function scrollToSlide(slide, behavior) {
+      const targetLeft = slide.offsetLeft - (gallery.clientWidth - slide.offsetWidth) / 2;
+      gallery.scrollTo({
+        left: targetLeft,
+        behavior,
+      });
+    }
+
+    function finishLoop(slide, index) {
+      window.clearTimeout(loopResetTimer);
+      loopResetTimer = window.setTimeout(() => {
+        scrollToSlide(slide, "auto");
+        isLooping = false;
+        updateState(index);
+      }, LOOP_RESET_DELAY);
     }
 
     function showSlide(index) {
       const normalized = (index + slides.length) % slides.length;
-      const slide = slides[normalized];
-      const targetLeft = slide.offsetLeft - (gallery.clientWidth - slide.offsetWidth) / 2;
-      gallery.scrollTo({
-        left: targetLeft,
-        behavior: reduceMotion ? "auto" : "smooth",
-      });
+      const behavior = reduceMotion ? "auto" : "smooth";
+
+      if (!reduceMotion && index >= slides.length) {
+        isLooping = true;
+        scrollToSlide(trailingClones[0], behavior);
+        updateState(0);
+        finishLoop(slides[0], 0);
+        return;
+      }
+
+      if (!reduceMotion && index < 0) {
+        const lastIndex = slides.length - 1;
+        isLooping = true;
+        scrollToSlide(leadingClones[lastIndex], behavior);
+        updateState(lastIndex);
+        finishLoop(slides[lastIndex], lastIndex);
+        return;
+      }
+
+      scrollToSlide(slides[normalized], behavior);
       updateState(normalized);
     }
 
@@ -76,19 +128,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function findCenteredSlide() {
+      if (isLooping) return;
       const galleryBox = gallery.getBoundingClientRect();
       const center = galleryBox.left + galleryBox.width / 2;
-      let closestIndex = 0;
+      let closestSlide = visualSlides[0];
       let closestDistance = Number.POSITIVE_INFINITY;
-      slides.forEach((slide, index) => {
+      visualSlides.forEach((slide) => {
         const box = slide.getBoundingClientRect();
         const distance = Math.abs(box.left + box.width / 2 - center);
         if (distance < closestDistance) {
           closestDistance = distance;
-          closestIndex = index;
+          closestSlide = slide;
         }
       });
-      updateState(closestIndex);
+      updateState(Number(closestSlide.dataset.galleryIndex));
     }
 
     previous?.addEventListener("click", () => showSlideFromInteraction(activeIndex - 1));
@@ -117,7 +170,10 @@ document.addEventListener("DOMContentLoaded", () => {
     gallery.addEventListener("wheel", () => { stopAutoplay(); scheduleAutoplay(); }, { passive: true });
     document.addEventListener("visibilitychange", () => document.hidden ? stopAutoplay() : startAutoplay());
 
-    findCenteredSlide();
-    startAutoplay();
+    requestAnimationFrame(() => {
+      scrollToSlide(slides[0], "auto");
+      updateState(0);
+      startAutoplay();
+    });
   });
 });
