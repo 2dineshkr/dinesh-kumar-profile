@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="TempGuard is a lightweight Windows tray utility by Dinesh Kumar for monitoring CPU and GPU temperatures and finding high-CPU processes.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TempGuard | Windows utility by Dinesh Kumar">
+  <meta property="og:description" content="At-a-glance thermal monitoring, CPU load visibility, and privacy-conscious local operation for Windows 10 and 11.">
+  <meta property="og:image" content="https://2dineshkr.github.io/dinesh-kumar-profile/assets/images/tempguard-logo.svg">
+  <link rel="canonical" href="https://2dineshkr.github.io/dinesh-kumar-profile/apps/tempguard/">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <title>TempGuard | Dinesh Kumar</title>
+  <link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div class="nav-shell"><div class="wrap"><nav aria-label="TempGuard navigation"><a class="brand" href="../../"><span>Dinesh</span> Kumar</a><div class="links"><a href="./" aria-current="page">TempGuard</a><a href="#features">Features</a><a href="#privacy">Privacy &amp; safety</a><a href="../">All Applications</a></div></nav></div></div>
+<header class="hero tempguard-hero"><div class="wrap hero-grid">
+  <div><span class="eyebrow">Windows utility</span><h1>See the heat before it becomes a problem.</h1><p class="hero-copy">TempGuard is a lightweight system-tray utility that surfaces the hottest current CPU or GPU temperature, explains the thermal state with clear color cues, and helps identify high-CPU processes.</p><div class="buttons"><a class="btn primary" href="https://github.com/2dineshkr/TempGuard" target="_blank" rel="noopener noreferrer">View source on GitHub <span aria-hidden="true">↗</span></a><a class="btn" href="#features">Explore features</a></div></div>
+  <div class="tempguard-visual" aria-label="TempGuard thermal status illustration"><div class="tempguard-logo-hero"><img src="../../assets/images/tempguard-logo.svg" width="320" height="320" alt="TempGuard thermometer and shield logo" fetchpriority="high"></div><div class="thermal-scale" aria-hidden="true"><span class="thermal-stable">Stable</span><span class="thermal-warm">Warm</span><span class="thermal-hot">Hot</span></div><span class="app-visual-pill tempguard-platform">Windows 10 / 11</span><span class="app-visual-pill tempguard-local">Local-first</span></div>
+</div></header>
+<main id="main-content">
+  <section id="features"><div class="wrap"><div class="section-head"><span class="tag">Core capabilities</span><h2>Clear signals, useful context.</h2><p>The hottest trustworthy sensor drives the tray color so an average cannot hide a hotspot.</p></div><div class="grid">
+    <article class="card"><span class="card-number">01</span><span class="tag">Monitor</span><h3>Live thermal status</h3><p>Shows the hottest current CPU or GPU reading in the tray, with configurable green, orange, and red thresholds.</p></article>
+    <article class="card"><span class="card-number">02</span><span class="tag">Diagnose</span><h3>CPU load visibility</h3><p>Lists processes by recent CPU use every two seconds, alongside process ID, memory use, and window title when available.</p></article>
+    <article class="card"><span class="card-number">03</span><span class="tag">Act carefully</span><h3>Guarded task control</h3><p>Allows confirmed task termination while protecting TempGuard, other user sessions, and known critical Windows processes.</p></article>
+  </div></div></section>
+  <section class="soft"><div class="wrap"><div class="case-study"><article class="case-main"><span class="tag">Reliable behavior</span><h2>Designed for useful, low-noise monitoring.</h2><p class="muted">TempGuard focuses on practical safeguards around sensor quality, notifications, and optional system integration.</p><h3>Engineering details</h3><ul class="case-list"><li>Two-degree threshold hysteresis reduces repeated notifications near a boundary</li><li>Gray status clearly indicates that no trustworthy sensor reading is available</li><li>Optional PawnIO sensor support is downloaded only after confirmation and checked against a pinned SHA-256 hash</li><li>Per-user startup avoids elevated scheduled tasks and UAC bypasses</li></ul></article><aside class="case-side"><h2>Project snapshot</h2><dl class="definition-list"><div><dt>Platform</dt><dd>64-bit Windows 10 and 11</dd></div><div><dt>Technology</dt><dd>C# · .NET Framework 4.8</dd></div><div><dt>Hardware data</dt><dd>LibreHardwareMonitor</dd></div><div><dt>License</dt><dd>MIT</dd></div></dl><div class="buttons"><a class="btn primary" href="https://github.com/2dineshkr/TempGuard" target="_blank" rel="noopener noreferrer">Open repository <span aria-hidden="true">↗</span></a></div></aside></div></div></section>
+  <section id="privacy"><div class="wrap"><div class="section-head"><span class="tag">Privacy &amp; safety</span><h2>Local by default, honest about limits.</h2><p>Temperature and process-usage data remain on the computer. The running application makes no background network requests; a network request happens only when the user explicitly chooses to install optional sensor support.</p></div><div class="privacy-highlights"><article class="privacy-highlight"><span aria-hidden="true">◉</span><h3>No telemetry</h3><p>No usage analytics or remote monitoring.</p></article><article class="privacy-highlight"><span aria-hidden="true">✓</span><h3>Explicit installation</h3><p>Optional sensor support requires confirmation.</p></article><article class="privacy-highlight"><span aria-hidden="true">△</span><h3>Advisory tool</h3><p>It does not replace hardware thermal protection.</p></article></div><p class="muted tempguard-note">TempGuard cannot universally stop charging, change fan curves, or guarantee shutdown prevention. Persistent overheating should be inspected professionally.</p></div></section>
+</main>
+<footer><div class="wrap footer-grid"><div><a class="brand" href="./"><span>Temp</span>Guard</a><p>Lightweight Windows thermal monitoring utility.</p></div><div class="footer-links"><a href="../">All Applications</a><a href="https://github.com/2dineshkr/TempGuard" target="_blank" rel="noopener noreferrer">GitHub</a><a href="../../">Developer profile</a></div><p class="copyright">© 2026 Dinesh Kumar</p></div></footer>
+</body>
+</html>

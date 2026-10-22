@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="title desc">
+  <title id="title">TempGuard logo</title>
+  <desc id="desc">A thermometer inside a shield</desc>
+  <defs>
+    <linearGradient id="bg" x1="42" y1="36" x2="276" y2="288" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6554f6"/>
+      <stop offset="1" stop-color="#2439ad"/>
+    </linearGradient>
+    <linearGradient id="heat" x1="160" y1="94" x2="160" y2="232" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffc857"/>
+      <stop offset="1" stop-color="#ff6859"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="320" rx="72" fill="url(#bg)"/>
+  <path d="M160 52 254 88v62c0 60-37 103-94 126-57-23-94-66-94-126V88l94-36Z" fill="#fff" fill-opacity=".13" stroke="#fff" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M176 184.5V109a30 30 0 0 0-60 0v75.5a46 46 0 1 0 60 0Z" fill="#fff"/>
+  <path d="M146 112v88" stroke="url(#heat)" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="146" cy="214" r="26" fill="#ff6859"/>
+  <path d="M197 115h29M197 145h20M197 175h29" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+</svg>

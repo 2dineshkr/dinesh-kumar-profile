@@ -11,6 +11,7 @@ A fast, dependency-free professional portfolio covering software architecture, b
 - `/apps/smartdialer/` — SmartDialer app landing page
 - `/apps/smartdialer/privacy.html` — SmartDialer privacy policy
 - `/apps/smartdialer/support.html` — SmartDialer support page
+- `/apps/tempguard/` — TempGuard Windows utility overview
 
 ## GitHub Pages
 Enable GitHub Pages from repository Settings → Pages → Deploy from a branch → main → root.
