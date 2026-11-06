@@ -1,0 +1,75 @@
+/* Shared design tokens. Change the palette, type, rhythm, or geometry here. */
+:root {
+  color-scheme: light dark;
+  --ink: #11132d;
+  --ink-2: #242640;
+  --muted: #54566e;
+  --purple: #5940bd;
+  --purple-dark: #453195;
+  --violet: #7353db;
+  --cyan: #2473bb;
+  --coral: #aa4936;
+  --gold: #b37a13;
+  --white: #fffefd;
+  --soft: #f6f4fb;
+  --line: #e6e2f0;
+  --surface: #ffffff;
+  --accent-soft: #eee9fc;
+  --hero-bg: #f5f2fe;
+  --hero-halo: #e6dffc;
+  --project-blue: #eef5fd;
+  --project-green: #eff6f1;
+  --on-accent: #ffffff;
+  --banner: #493497;
+  --focus: #9a5900;
+  --shadow: 0 8px 24px rgb(39 27 82 / 7%);
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --space-1: .25rem; --space-2: .5rem; --space-3: .75rem;
+  --space-4: 1rem; --space-5: 1.5rem; --space-6: 2rem;
+  --space-7: 3rem; --space-8: 4rem;
+  --radius-sm: .5rem; --radius-md: 1rem; --radius-lg: 1.5rem;
+  --container: 1248px;
+  --heading-xl: clamp(2.25rem, 3.55vw, 3.45rem);
+  --heading-lg: clamp(1.6rem, 2.4vw, 2.05rem);
+  /* Layout breakpoints: 1100px navigation, 900px tablet, 600px phone. */
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #eeedf6; --ink-2: #dedbea; --muted: #b9b5c9;
+    --purple: #b6a0ff; --purple-dark: #c6b5ff; --violet: #bba6ff;
+    --white: #1c1c27; --soft: #262432; --line: #403a53;
+    --surface: #24232f; --accent-soft: #373047;
+    --hero-bg: #252232; --hero-halo: #3c3158;
+    --project-blue: #232d3b; --project-green: #26312d;
+    --on-accent: #201733; --banner: #45318b; --focus: #f3c477;
+    --shadow: 0 8px 24px rgb(0 0 0 / 12%);
+  }
+}
+body { font-family: var(--font-sans); background: var(--white); color: var(--ink); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+.nav-shell { background: var(--surface); border-color: var(--line); backdrop-filter: none; }
+.hero { background: var(--hero-bg); }
+.btn, .card, .project-card, .case-main, .case-side, .app-card, .chip, .notice { background: var(--surface); border-color: var(--line); color: var(--ink); }
+.btn.primary { background: var(--purple); color: var(--on-accent); border-color: var(--purple); }
+.btn.primary:hover { background: var(--purple-dark); }
+.btn.light { background: #fff; color: #30235a; border-color: transparent; }
+h1,h2,h3 { text-wrap: balance; }
+.card:hover, .project-card:hover { transform: translateY(-2px); border-color: var(--purple); }
+body:not(.portfolio-home) nav { flex-wrap: wrap; padding-block: var(--space-3); }
+body:not(.portfolio-home) .links { flex-wrap: wrap; gap: var(--space-4); }
+body:not(.portfolio-home) .hero-copy { color: var(--muted); }
+body:not(.portfolio-home) section { scroll-margin-top: 100px; }
+@media (max-width: 600px) {
+  body:not(.portfolio-home) .hero-grid, .case-study, .app-card, .tempguard-hero .hero-grid { grid-template-columns: minmax(0,1fr); }
+  body:not(.portfolio-home) .hero-grid { gap: var(--space-6); }
+  body:not(.portfolio-home) .hero { padding-block: var(--space-7); }
+  body:not(.portfolio-home) section { padding-block: var(--space-7); }
+  body:not(.portfolio-home) .links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .case-main, .case-side, .app-card { padding: var(--space-5); }
+}
+@media (prefers-color-scheme: dark) {
+  .app-logo-wrap, .tempguard-hero { background: var(--hero-bg); }
+  .definition-list dt { color: var(--muted); }
+  .definition-list dd { color: var(--ink); }
+  .privacy-highlight { background: var(--surface); border-color: var(--line); }
+}

@@ -1,0 +1,116 @@
+[
+  {
+    "width": 1440,
+    "overflow": false,
+    "images": true,
+    "h1": 1,
+    "projects": 3,
+    "navDisplay": "flex",
+    "brokenAnchors": [],
+    "outOfBounds": []
+  },
+  {
+    "width": 768,
+    "overflow": false,
+    "images": true,
+    "h1": 1,
+    "projects": 3,
+    "navDisplay": "flex",
+    "brokenAnchors": [],
+    "outOfBounds": [],
+    "menuOpens": true,
+    "menuCloses": true
+  },
+  {
+    "width": 390,
+    "overflow": false,
+    "images": true,
+    "h1": 1,
+    "projects": 3,
+    "navDisplay": "flex",
+    "brokenAnchors": [],
+    "outOfBounds": [],
+    "menuOpens": true,
+    "menuCloses": true
+  },
+  {
+    "width": 320,
+    "overflow": false,
+    "images": true,
+    "h1": 1,
+    "projects": 3,
+    "navDisplay": "flex",
+    "brokenAnchors": [],
+    "outOfBounds": [],
+    "menuOpens": true,
+    "menuCloses": true
+  },
+  {
+    "navigation": [
+      {
+        "section": "expertise",
+        "active": "#expertise"
+      },
+      {
+        "section": "projects",
+        "active": "#projects"
+      },
+      {
+        "section": "experience",
+        "active": "#experience"
+      },
+      {
+        "section": "ai-lab",
+        "active": "#contact"
+      }
+    ]
+  },
+  {
+    "page": "projects/",
+    "title": "Projects | Dinesh Kumar",
+    "overflow": false,
+    "images": true
+  },
+  {
+    "page": "apps/",
+    "title": "Applications | Dinesh Kumar",
+    "overflow": false,
+    "images": true
+  },
+  {
+    "page": "apps/tempguard/",
+    "title": "TempGuard | Dinesh Kumar",
+    "overflow": false,
+    "images": true
+  },
+  {
+    "page": "projects/engineering/",
+    "title": "Engineering Projects | Dinesh Kumar",
+    "overflow": false,
+    "images": true
+  },
+  {
+    "page": "projects/ai/",
+    "title": "AI & Generative AI Projects | Dinesh Kumar",
+    "overflow": false,
+    "images": true
+  },
+  {
+    "page": "projects/android/",
+    "title": "Android & Mobile Projects | Dinesh Kumar",
+    "overflow": false,
+    "images": true
+  },
+  {
+    "page": "privacy.html",
+    "title": "Privacy | Dinesh Kumar",
+    "overflow": false,
+    "images": true
+  },
+  {
+    "page": "404.html",
+    "title": "Page not found | Dinesh Kumar",
+    "overflow": false,
+    "images": true
+  }
+]

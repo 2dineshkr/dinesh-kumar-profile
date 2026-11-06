@@ -1,0 +1,17 @@
+{
+  "html_pages": 9,
+  "link_errors": [],
+  "portrait_unchanged": true,
+  "homepage_metadata": [
+    "description",
+    "og:description",
+    "og:image",
+    "og:image:alt",
+    "og:title",
+    "og:type",
+    "og:url",
+    "theme-color",
+    "twitter:card",
+    "viewport"
+  ]
+}

@@ -37,3 +37,20 @@ Then open `http://localhost:8000/`.
 All applications are published under `/apps/<application-name>/` with an overview, privacy policy, and support page.
 
 Before each application release, verify its published privacy statements against the release build, Android permissions, third-party SDKs, backup behavior, retention logic, Google Play Data Safety declaration, and store support contact.
+
+## Redesign and local verification
+
+Shared colors, typography, spacing, radii, and system-aware light/dark themes live in
+`assets/css/theme.css`. Homepage composition lives in `assets/css/home.css`;
+`assets/css/site.css` retains the existing detail-page layouts. Responsive layout
+breakpoints are documented beside the theme tokens and implemented in media queries.
+
+Run `python tools/check_site.py` to check internal paths, anchors, metadata, and the
+original portrait bytes. Run `node tools/verify.cjs` on Windows with Python, Node 22+,
+and Chrome installed to start an isolated local preview, check the requested viewport
+sizes, and refresh `review/` screenshots. No npm dependencies are required. The script
+starts and stops its own preview server and headless browser; its disposable browser
+profile is ignored under `.local-qa/`.
+
+See `review/REDESIGN-REVIEW.md` for the implementation summary, asset limitations,
+verification evidence, and screenshot inventory. This work has not been deployed.
